@@ -3,12 +3,28 @@
  * @author Ana Ferreira
  */
 
-    const playerSelection = `PaPer`;
-    const computerSelection = getComputerChoice();
-    console.log(`The computer selected ${computerSelection}`);
+ const options = ["rock","paper","scissors"];
+ let playerPoints  = 0;
+ let computerPoints = 0;
 
-    
-    console.log(playRound(playerSelection, computerSelection));
+ game();
+
+
+ /**
+  * Opening message
+  */
+ function welcome() {
+
+    alert(`This game of Rock, Paper, Scissors consists of 5 rounds where you will be playing against your computer\nEnjoy!`);
+}
+
+/**
+ * Gets the player option
+ * @return the option selected by player
+ */
+ function getPlayerSelection() {
+    return prompt("Pick rock,paper or scissors?");
+}
 
 
 /**
@@ -16,7 +32,6 @@
  * @return 
  */
 function getComputerChoice() {
-    const options = ["rock","paper","scissor"];
     const random = Math.floor(Math.random() * options.length);
     return options[random];
 }
@@ -32,23 +47,75 @@ function playRound(playerSelection, computerSelection){
 
     let player = playerSelection.toLowerCase(playerSelection);
 
-    let playerWins = (player==='rock'&& computerSelection==='scissor') ||
+    let playerWins = (player==='rock'&& computerSelection==='scissors') ||
     (player==='paper' && computerSelection==='rock') ||
-    (player==='scissor' && computerSelection==='paper');
+    (player==='scissors' && computerSelection==='paper');
 
     let result;
 
     if(player === computerSelection){
-        result = `It's a tie!`;
+        result = `It's a tie! :/`;
     }
 
     else if(playerWins){
-        result = `You Win! ${player} beats ${computerSelection}`;
+        result = `You Win! ${player} beats ${computerSelection} :)`;
+        playerPoints++;
     }
 
     else{
-        result = `You Lose! ${computerSelection} beats ${player}`;
+        result = `You Lose! ${computerSelection} beats ${player} :(`;
+        computerPoints++;
     }
 
     return result;
+}
+
+
+/**
+ * Verifies if the player typed a valid option
+ * @param {*} playerSelection 
+ * @return true if valid, false otherwise
+ */
+function isValidPlayerSelection(playerSelection) {
+
+    if (typeof playerSelection != 'string') {
+        return false;
+    }
+
+    playerSelection = playerSelection.toLowerCase();
+    let result = false;
+    for (let i = 0; i < options.length; i++) {
+        if(playerSelection === options[i]){
+            result = true;
+        }  
+    }
+    return result;
+}
+
+function whoWin() {
+    return playerPoints > computerPoints? 'You won' : 'You lost';
+}
+
+/**
+ * Plays 5 rounds of the game
+ */
+function game() {
+
+    welcome();
+
+    for (let i = 0; i < 5 || playerPoints === computerPoints; i++) {
+
+        let playerSelection = getPlayerSelection();
+
+        while (!isValidPlayerSelection(playerSelection)) {
+            alert(`Please enter a valid option \nRock,Paper or Scissors`);
+            playerSelection = getPlayerSelection();
+        }
+
+        let computerSelection = getComputerChoice();
+        alert(`The computer selected ${computerSelection}\n` + playRound(playerSelection, computerSelection));
+        alert(`End of round ${i+1}\n YOU: ${playerPoints}\n COMPUTER: ${computerPoints}`);
+    }
+
+    alert(whoWin()+`\nThanks for playing!`);
 }
