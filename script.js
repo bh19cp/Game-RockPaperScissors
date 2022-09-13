@@ -1,34 +1,54 @@
-
-const options = ["rock","paper","scissor"];
-
-let computerChoice = getComputerChoice(options);
-
-console.log(computerChoice);
 /**
- * Returns a valid computer choice
- * @param  
- * @return opcao valida
+ * This is my take on the Rock,Paper,Scissors game of The Odin Project
+ * @author Ana Ferreira
  */
-function getComputerChoice(options) {
+
+    const playerSelection = `PaPer`;
+    const computerSelection = getComputerChoice();
+    console.log(`The computer selected ${computerSelection}`);
+
+    
+    console.log(playRound(playerSelection, computerSelection));
+
+
+/**
+ * Returns either Rock,Paper or Scissors
+ * @return 
+ */
+function getComputerChoice() {
+    const options = ["rock","paper","scissor"];
     const random = Math.floor(Math.random() * options.length);
     return options[random];
 }
 
-function round(computerChoice, playerChoice){
-    let player = toLowerCase(playerChoice);
+/**
+ * Plays one round of Rock,Paper,Scissors
+ * @param computerChoice
+ * @param playerChoice
+ * @return a string that declares the winner of the round
+ * 
+ */
+function playRound(playerSelection, computerSelection){
 
-    switch (computerChoice) {
-        case 'rock':
-            
-            break;
-        case 'paper':
-            break;
-        case 'scissor':
-            break;
-        default:
-            console.log('The End')
-            break;
+    let player = playerSelection.toLowerCase(playerSelection);
+
+    let playerWins = (player==='rock'&& computerSelection==='scissor') ||
+    (player==='paper' && computerSelection==='rock') ||
+    (player==='scissor' && computerSelection==='paper');
+
+    let result;
+
+    if(player === computerSelection){
+        result = `It's a tie!`;
     }
 
-}
+    else if(playerWins){
+        result = `You Win! ${player} beats ${computerSelection}`;
+    }
 
+    else{
+        result = `You Lose! ${computerSelection} beats ${player}`;
+    }
+
+    return result;
+}
