@@ -1,0 +1,90 @@
+@font-face {
+    font-family: 'Inside Out';
+    src: url(fonts/InsideOutLowercase-BA0G.ttf);
+}
+*{
+    list-style: none;
+    font-family: "Inside Out";
+}
+
+#permisse{
+    font-family: "Inside Out";
+    font-size: xx-large;
+}
+
+#froggy{
+    font-size: larger;
+    text-shadow: 2px 2px #4e3a3a;
+    color: rgb(85, 199, 96);
+}
+
+.console{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 50vh;
+    border: 10px solid grey;
+}
+
+.options{
+    display: flex;
+    height: 25vh;
+    width: 60vw;
+    justify-content:space-evenly;
+    font-size: larger;
+    margin-bottom: 1vh;
+}
+
+.options div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.options img{
+    height: 15vh;
+}
+
+.options img:hover{
+    height: 20vh;
+}
+
+.score{
+    display: flex;
+    width: 40vw;
+    justify-content: space-between;
+}
+
+#cpu{
+    color: blue;
+    font-weight: 600;
+    font-size: larger;
+}
+
+#player{
+    color:hotpink;
+    font-weight: 600;
+    font-size: larger;
+}
+
+.habitat{
+    margin-top: 4vh;
+    display: flex;
+    justify-content: space-between;
+}
+.habitat #frog img{
+    height: 20vh;
+}
+
+.habitat #pond img{
+    height: 20vh;
+}
+
+.step{
+    margin-top: 15vh;
+    height: 5vh;
+    width: 5vh;
+    background-color: green;
+    box-shadow: 4px 5px #847b7b;
+    border-radius: 10vh;
+}
