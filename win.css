@@ -1,0 +1,27 @@
+
+#playAgain{
+    font-size:xx-large;
+}
+
+.continueBtn{
+    display: flex;
+    width: 25vw;
+    justify-content: space-between;
+}
+
+.continueBtn div{
+    background-color: green;
+    font-size: larger;
+    color: white;
+    padding: 10px;
+    border-radius: 20px;
+}
+
+.continueBtn div:hover{
+    background-color: rgb(12, 73, 12);
+}
+
+#last{
+    font-family: "Inside Out";
+    font-size: xx-large;
+}

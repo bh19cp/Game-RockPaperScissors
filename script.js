@@ -1,121 +1,98 @@
-/**
- * This is my take on the Rock,Paper,Scissors game of The Odin Project
- * @author Ana Ferreira
- */
+const options = ['rock', 'paper', 'scissor'];
+let playerPoints = 0;
+let computerPoints = 0;
+let roundCounter = 0;
 
- const options = ["rock","paper","scissors"];
- let playerPoints  = 0;
- let computerPoints = 0;
-
- game();
-
-
- /**
-  * Opening message
-  */
- function welcome() {
-
-    alert(`This game of Rock, Paper, Scissors consists of 5 rounds where you will be playing against your computer\nEnjoy!`);
-}
-
-/**
- * Gets the player option
- * @return the option selected by player
- */
- function getPlayerSelection() {
-    return prompt("Pick rock,paper or scissors?");
-}
-
-
-/**
- * Returns either Rock,Paper or Scissors
- * @return 
- */
+// Function to get computer's choice
 function getComputerChoice() {
-    const random = Math.floor(Math.random() * options.length);
-    return options[random];
+  const random = Math.floor(Math.random() * options.length);
+  return options[random];
 }
 
-/**
- * Plays one round of Rock,Paper,Scissors
- * @param computerChoice
- * @param playerChoice
- * @return a string that declares the winner of the round
- * 
- */
-function playRound(playerSelection, computerSelection){
-
-    let player = playerSelection.toLowerCase(playerSelection);
-
-    let playerWins = (player==='rock'&& computerSelection==='scissors') ||
-    (player==='paper' && computerSelection==='rock') ||
-    (player==='scissors' && computerSelection==='paper');
-
-    let result;
-
-    if(player === computerSelection){
-        result = `It's a tie! :/`;
-    }
-
-    else if(playerWins){
-        result = `You Win! ${player} beats ${computerSelection} :)`;
-        playerPoints++;
-    }
-
-    else{
-        result = `You Lose! ${computerSelection} beats ${player} :(`;
-        computerPoints++;
-    }
-
-    return result;
+// Function to play one round
+function playRound(playerSelection, computerSelection) {
+  playerSelection = playerSelection.toLowerCase();
+  if (playerSelection === computerSelection) {
+    document.getElementById("computer-pick").textContent = `It's a tie, computer picked ${computerSelection}`;
+  } else if (
+    (playerSelection === 'rock' && computerSelection === 'scissor') ||
+    (playerSelection === 'paper' && computerSelection === 'rock') ||
+    (playerSelection === 'scissor' && computerSelection === 'paper')
+  ) {
+    playerPoints++;
+    document.getElementById("computer-pick").textContent = `You won, computer picked ${computerSelection}`;
+  } else {
+    computerPoints++;
+    document.getElementById("computer-pick").textContent = `You lost , computer picked ${computerSelection}`;
+  }
 }
 
+// Function to determine the winner
+function gameOver() {
+  if (playerPoints > computerPoints) {
+    console.log('You won the game, froggy is in the pond!');
 
-/**
- * Verifies if the player typed a valid option
- * @param {*} playerSelection 
- * @return true if valid, false otherwise
- */
-function isValidPlayerSelection(playerSelection) {
+    window.location.href = "win.html";
+    window.addEventListener('DOMContentLoaded', function(){
+        document.getElementById("last").innerText = "YOU WON ! THANK YOU FOR YOUR HELP!";
+    });
+    
+  } else if (playerPoints < computerPoints) {
+    console.log( 'You lost the game, you can help froggy next time!');
+    window.location.href = "win.html";
+    window.addEventListener('DOMContentLoaded', function(){
+        document.getElementById("last").innerText = "YOU LOST...";
+    });
 
-    if (typeof playerSelection != 'string') {
-        return false;
-    }
-
-    playerSelection = playerSelection.toLowerCase();
-    let result = false;
-    for (let i = 0; i < options.length; i++) {
-        if(playerSelection === options[i]){
-            result = true;
-        }  
-    }
-    return result;
+  } else {
+    window.location.href = "win.html";
+    window.addEventListener('DOMContentLoaded', function(){
+        document.getElementById("last").innerText = "IT'S A TIE :/ THANK YOU FOR YOUR HELP!";
+    });
+    
+  }
 }
 
-function whoWin() {
-    return playerPoints > computerPoints? 'You won' : 'You lost';
+// Function to update the score display
+function updateScore() {
+  const playerScoreElement = document.getElementById('player');
+  const computerScoreElement = document.getElementById('cpu');
+
+  playerScoreElement.textContent = `PLAYER ${playerPoints}`;
+  computerScoreElement.textContent = `COMPUTER ${computerPoints}`;
 }
 
-/**
- * Plays 5 rounds of the game
- */
+// Function to handle player's selection
+function play(playerSelection) {
+  const computerSelection = getComputerChoice();
+  playRound(playerSelection, computerSelection);
+  updateScore();
+}
+
+// Function to initialize the game
 function game() {
 
-    welcome();
+    const optionsDiv = document.querySelectorAll('.options div');
 
-    for (let i = 0; i < 5 || playerPoints === computerPoints; i++) {
+    optionsDiv.forEach((option) => {
+        option.addEventListener('click', function () {
+            let playerSelection = option.getAttribute('id');
+            play(playerSelection);
+            roundCounter++;
 
-        let playerSelection = getPlayerSelection();
-
-        while (!isValidPlayerSelection(playerSelection)) {
-            alert(`Please enter a valid option \nRock,Paper or Scissors`);
-            playerSelection = getPlayerSelection();
-        }
-
-        let computerSelection = getComputerChoice();
-        alert(`The computer selected ${computerSelection}\n` + playRound(playerSelection, computerSelection));
-        alert(`End of round ${i+1}\n YOU: ${playerPoints}\n COMPUTER: ${computerPoints}`);
-    }
-
-    alert(whoWin()+`\nThanks for playing!`);
+            if(roundCounter > 4){
+                gameOver();
+                resetGame();
+            }
+        });
+    });
 }
+
+function resetGame() {
+    playerPoints = 0;
+    computerPoints = 0;
+    updateScore();
+    roundCounter = 0;
+}
+// Call the startGame function on window load
+window.onload = game;
