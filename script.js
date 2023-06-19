@@ -1,7 +1,10 @@
 const options = ['rock', 'paper', 'scissor'];
 let playerPoints = 0;
 let computerPoints = 0;
-let roundCounter = 0;
+let roundCounter = 1;
+
+const gamediv = document.querySelector(".game");
+
 
 // Function to get computer's choice
 function getComputerChoice() {
@@ -21,6 +24,7 @@ function playRound(playerSelection, computerSelection) {
   ) {
     playerPoints++;
     document.getElementById("computer-pick").textContent = `You won, computer picked ${computerSelection}`;
+    
   } else {
     computerPoints++;
     document.getElementById("computer-pick").textContent = `You lost , computer picked ${computerSelection}`;
@@ -29,37 +33,40 @@ function playRound(playerSelection, computerSelection) {
 
 // Function to determine the winner
 function gameOver() {
-  if (playerPoints > computerPoints) {
-    console.log('You won the game, froggy is in the pond!');
+  gamediv.remove();
 
-    window.location.href = "win.html";
-    window.addEventListener('DOMContentLoaded', function(){
-        document.getElementById("last").innerText = "YOU WON ! THANK YOU FOR YOUR HELP!";
-    });
-    
-  } else if (playerPoints < computerPoints) {
-    console.log( 'You lost the game, you can help froggy next time!');
-    window.location.href = "win.html";
-    window.addEventListener('DOMContentLoaded', function(){
-        document.getElementById("last").innerText = "YOU LOST...";
-    });
+  let endMessage = document.createElement("div");
+  endMessage.className = "endMessage";
 
-  } else {
-    window.location.href = "win.html";
-    window.addEventListener('DOMContentLoaded', function(){
-        document.getElementById("last").innerText = "IT'S A TIE :/ THANK YOU FOR YOUR HELP!";
-    });
-    
-  }
+  let winning = document.createElement("h3");
+
+  if (playerPoints > computerPoints)
+    winning.innerHTML = "YOU WON! FROGGY IS BACK IN THE POND";
+  else if (playerPoints < computerPoints)
+    winning.innerHTML = "YOU LOST ...";
+  else winning.innerHTML = "IT'S A TIE. MAYBE NEXT TIME...";
+
+  endMessage.innerHTML = "<h3> Feel like saving another <span id='froggy'>froggy</span>? </h3>";
+  endMessage.prepend(winning);
+  let buttons = document.createElement("div");
+  buttons.innerHTML = "<a href='index.html'><p> YES, I AM THE FROG SAVIOUR</p></a><a href='https://youtu.be/wbr5vkIo4K8'><p> NOOOO, I HAVE STUFF TO DO</p></a>";
+  buttons.className = "continuePlayingBtn";
+  endMessage.append(buttons);
+  document.querySelector(".console").append(endMessage);
+  console.log(document.querySelector(".endMessage"));
 }
 
 // Function to update the score display
 function updateScore() {
   const playerScoreElement = document.getElementById('player');
   const computerScoreElement = document.getElementById('cpu');
+  const rounds = document.querySelector("#round p");
 
-  playerScoreElement.textContent = `PLAYER ${playerPoints}`;
-  computerScoreElement.textContent = `COMPUTER ${computerPoints}`;
+  if (roundCounter<5) {
+    rounds.textContent = `ROUND ${roundCounter+1}`;
+  }
+  playerScoreElement.textContent = `PLAYER : ${playerPoints}`;
+  computerScoreElement.textContent = `COMPUTER : ${computerPoints}`;
 }
 
 // Function to handle player's selection
@@ -72,6 +79,7 @@ function play(playerSelection) {
 // Function to initialize the game
 function game() {
 
+    console.log(document.querySelector(".console-end"));
     const optionsDiv = document.querySelectorAll('.options div');
 
     optionsDiv.forEach((option) => {
@@ -80,19 +88,11 @@ function game() {
             play(playerSelection);
             roundCounter++;
 
-            if(roundCounter > 4){
+            if(roundCounter > 5){
                 gameOver();
-                resetGame();
             }
         });
     });
-}
-
-function resetGame() {
-    playerPoints = 0;
-    computerPoints = 0;
-    updateScore();
-    roundCounter = 0;
 }
 // Call the startGame function on window load
 window.onload = game;

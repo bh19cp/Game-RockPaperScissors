@@ -20,11 +20,17 @@
 
 .console{
     display: flex;
+    align-items: center;
+    justify-content:flex-start;
+    height: 50vh;
+    border: 10px solid grey;
+}
+
+.game{
+    display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    height: 50vh;
-    border: 10px solid grey;
 }
 
 .options{
@@ -50,21 +56,26 @@
 }
 
 .score{
+    font-weight: 600;
+    font-size:x-large;
+}
+
+.score p{
+    padding: 0.5em;
+    border: 0.2em dotted aliceblue;
+}
+
+#round{
+    background-color: rgb(46, 135, 46);
+    color: aliceblue;
+    height: 100%;
+    border: 5px solid black;
+    width: 20vw;
+    font-size: 5em;
     display: flex;
-    width: 40vw;
-    justify-content: space-between;
-}
-
-#cpu{
-    color: blue;
-    font-weight: 600;
-    font-size: larger;
-}
-
-#player{
-    color:hotpink;
-    font-weight: 600;
-    font-size: larger;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
 
 .habitat{
@@ -89,3 +100,34 @@
     border-radius: 10vh;
 }
 
+.endMessage{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 80vw;
+}
+
+.endMessage h3{
+    font-size: 3em;
+}
+
+.continuePlayingBtn{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 40vw;
+}
+
+.continuePlayingBtn a{
+    background-color: green;
+    padding: 0.5em;
+    font-size: x-large;
+    border-radius: 1em;
+    color: aliceblue;
+    text-decoration: none;
+}
+
+.continuePlayingBtn a:hover{
+    background-color: rgb(2, 54, 2);
+}
