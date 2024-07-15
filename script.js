@@ -1,10 +1,9 @@
-const options = ['rock', 'paper', 'scissor'];
+const options = ["rock", "paper", "scissor"];
 let playerPoints = 0;
 let computerPoints = 0;
 let roundCounter = 1;
 
 const gamediv = document.querySelector(".game");
-
 
 // Function to get computer's choice
 function getComputerChoice() {
@@ -16,18 +15,24 @@ function getComputerChoice() {
 function playRound(playerSelection, computerSelection) {
   playerSelection = playerSelection.toLowerCase();
   if (playerSelection === computerSelection) {
-    document.getElementById("computer-pick").textContent = `It's a tie, computer picked ${computerSelection}`;
+    document.getElementById(
+      "computer-pick"
+    ).textContent = `It's a tie, computer picked ${computerSelection}`;
   } else if (
-    (playerSelection === 'rock' && computerSelection === 'scissor') ||
-    (playerSelection === 'paper' && computerSelection === 'rock') ||
-    (playerSelection === 'scissor' && computerSelection === 'paper')
+    (playerSelection === "rock" && computerSelection === "scissor") ||
+    (playerSelection === "paper" && computerSelection === "rock") ||
+    (playerSelection === "scissor" && computerSelection === "paper")
   ) {
     playerPoints++;
-    document.getElementById("computer-pick").textContent = `You won, computer picked ${computerSelection}`;
-    
+    document.getElementById(
+      "computer-pick"
+    ).textContent = `You won, computer picked ${computerSelection}`;
+    updateFrogPosition();
   } else {
     computerPoints++;
-    document.getElementById("computer-pick").textContent = `You lost , computer picked ${computerSelection}`;
+    document.getElementById(
+      "computer-pick"
+    ).textContent = `You lost , computer picked ${computerSelection}`;
   }
 }
 
@@ -42,14 +47,15 @@ function gameOver() {
 
   if (playerPoints > computerPoints)
     winning.innerHTML = "YOU WON! FROGGY IS BACK IN THE POND";
-  else if (playerPoints < computerPoints)
-    winning.innerHTML = "YOU LOST ...";
+  else if (playerPoints < computerPoints) winning.innerHTML = "YOU LOST ...";
   else winning.innerHTML = "IT'S A TIE. MAYBE NEXT TIME...";
 
-  endMessage.innerHTML = "<h3> Feel like saving another <span id='froggy'>froggy</span>? </h3>";
+  endMessage.innerHTML =
+    "<h3> Feel like saving another <span id='froggy'>froggy</span>? </h3>";
   endMessage.prepend(winning);
   let buttons = document.createElement("div");
-  buttons.innerHTML = "<a href='index.html'><p> YES, I AM THE FROG SAVIOUR</p></a><a href='https://youtu.be/wbr5vkIo4K8'><p> NOOOO, I HAVE STUFF TO DO</p></a>";
+  buttons.innerHTML =
+    "<a href='index.html'><p> YES, I AM THE FROG SAVIOUR</p></a><a href='https://youtu.be/wbr5vkIo4K8'><p> NOOOO, I HAVE STUFF TO DO</p></a>";
   buttons.className = "continuePlayingBtn";
   endMessage.append(buttons);
   document.querySelector(".console").append(endMessage);
@@ -58,13 +64,11 @@ function gameOver() {
 
 // Function to update the score display
 function updateScore() {
-  const playerScoreElement = document.getElementById('player');
-  const computerScoreElement = document.getElementById('cpu');
+  const playerScoreElement = document.getElementById("player");
+  const computerScoreElement = document.getElementById("cpu");
   const rounds = document.querySelector("#round p");
 
-  if (roundCounter<5) {
-    rounds.textContent = `ROUND ${roundCounter+1}`;
-  }
+  rounds.textContent = `ROUND ${roundCounter + 1}`;
   playerScoreElement.textContent = `PLAYER : ${playerPoints}`;
   computerScoreElement.textContent = `COMPUTER : ${computerPoints}`;
 }
@@ -78,21 +82,54 @@ function play(playerSelection) {
 
 // Function to initialize the game
 function game() {
+  console.log(document.querySelector(".console-end"));
+  const optionsDiv = document.querySelectorAll(".options div");
 
-    console.log(document.querySelector(".console-end"));
-    const optionsDiv = document.querySelectorAll('.options div');
+  optionsDiv.forEach((option) => {
+    option.addEventListener("click", function () {
+      let playerSelection = option.getAttribute("id");
+      play(playerSelection);
+      roundCounter++;
 
-    optionsDiv.forEach((option) => {
-        option.addEventListener('click', function () {
-            let playerSelection = option.getAttribute('id');
-            play(playerSelection);
-            roundCounter++;
-
-            if(roundCounter > 5){
-                gameOver();
-            }
-        });
+      if (roundCounter > 14 || playerPoints == 3) {
+        gameOver();
+      }
     });
+  });
 }
-// Call the startGame function on window load
+
+function updateFrogPosition() {
+  let frog = document.querySelector("#frog");
+  let frogCopy = document.querySelector("#frog").cloneNode(true);
+
+  let step = null;
+  let newStep = null;
+
+  switch (playerPoints) {
+    case 1:
+      newStep = document.createElement("div");
+      newStep.className = "step-used";
+      newStep.id = "step-0";
+      step = document.querySelector("#step-1");
+      break;
+    case 2:
+      newStep = document.createElement("div");
+      newStep.className = "step-used";
+      newStep.id = "step-1";
+      step = document.querySelector("#step-2");
+      break;
+    case 3:
+      newStep = document.createElement("div");
+      newStep.className = "step-used";
+      newStep.id = "step-2";
+      step = document.querySelector("#pond");
+      break;
+    default:
+      break;
+  }
+  if (step != null) {
+    frog.replaceWith(newStep);
+    step.replaceWith(frog);
+  }
+}
 window.onload = game;

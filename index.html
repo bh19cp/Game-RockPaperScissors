@@ -1,44 +1,55 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Rock Paper Scissors</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css" />
     <script src="script.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/js-confetti@latest/dist/js-confetti.browser.js"></script>
-</head>
-<body>
+  </head>
+  <body>
     <div class="console">
-        <div id="round">
-            <p>ROUND 1</p>
-            <div class="score">
-                <p id="cpu">COMPUTER : 0</p>
-                <p id="player">PLAYER : 0</p>
-            </div>
+      <div id="round">
+        <p>ROUND 1</p>
+        <div class="score">
+          <p id="cpu">COMPUTER : 0</p>
+          <p id="player">PLAYER : 0</p>
         </div>
-        <div class="game">
-            <h2 id="permisse">YOU HAVE <span id="froggy">5 ROUNDS</span> TO HELP <span id="froggy">froggy</span> to get back to the pond</h2>
-            <h3 id="computer-pick"></h3>
-            <div class="options">
-                <div id="rock"><img src="images/rock.jpg" alt="rock"> <p>ROCK</p></div>
-                <div id="paper"><img src="images/paper.jpg" alt="paper"> <p>PAPER</p></div>
-                <div id="scissor"><img src="images/scissor.jpg" alt="scissor"> <p>SCISSOR</p></div>
-            </div>
+      </div>
+      <div class="game">
+        <h2 id="permisse">
+          YOU HAVE <span id="froggy">15 ROUNDS</span> TO HELP
+          <span id="froggy">froggy</span> to get back to the pond
+        </h2>
+        <h3 id="computer-pick"></h3>
+        <div class="options">
+          <div id="rock">
+            <img src="images/rock.jpg" alt="rock" />
+            <p>ROCK</p>
+          </div>
+          <div id="paper">
+            <img src="images/paper.jpg" alt="paper" />
+            <p>PAPER</p>
+          </div>
+          <div id="scissor">
+            <img src="images/scissor.jpg" alt="scissor" />
+            <p>SCISSOR</p>
+          </div>
         </div>
-        </div>
-       
-    <div class="habitat">
-        <div id="frog">
-            <img src="images/frog.png" alt="frog">
-        </div>
-        <div class="step"></div>
-        <div class="step"></div>
-        <div id="pond">
-            <img src="images/pond.webp" alt="pond">
-
-        </div>
+      </div>
     </div>
-</body>
+
+    <div class="habitat">
+      <div id="frog">
+        <img src="images/frog.png" alt="frog" />
+      </div>
+      <div class="step" id="step-1"></div>
+      <div class="step" id="step-2"></div>
+      <div id="pond">
+        <img src="images/pond.webp" alt="pond" />
+      </div>
+    </div>
+  </body>
 </html>
